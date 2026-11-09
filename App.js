@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
-import HomeScreen from './src/screens/HomeScreen';
-import ExpensesScreen from './src/screens/ExpensesScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import StackNavigator from './src/navigation/StackNavigator';
 
 export default function App() {
-  const [pantallaActual, setPantallaActual] = useState('Home');
-
-  if (pantallaActual === 'Expenses') {
-    return <ExpensesScreen onVolver={() => setPantallaActual('Home')} />;
-  }
-
-  return <HomeScreen onNavegarAGastos={() => setPantallaActual('Expenses')} />;
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }

@@ -1,92 +1,54 @@
-// src/screens/ExpensesScreen.js
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import ExpenseItem from '../components/ExpenseItem';
 
-export default function ExpensesScreen({ onVolver }) {
-    const [nombreGasto, setNombreGasto] = useState('');
-    const [monto, setMontoGasto] = useState('');
-    const [categoria, setCategoriaGasto] = useState('');
+const EXPENSES = [
+  { id: '1', description: 'Supermercado', amount: 25000, category: 'Comida' },
+  { id: '2', description: 'Combustible', amount: 18000, category: 'Transporte' },
+  { id: '3', description: 'Internet', amount: 32000, category: 'Servicios' },
+];
 
-    const handleGuardar = () => {
-        console.log('Gasto guardado:', { nombreGasto, monto, categoria });
-        Alert.alert('Gasto guardado', `Nombre: ${nombreGasto}\nMonto: ${monto}\nCategoría: ${categoria}`);
-    };
+export default function ExpensesScreen({ navigation }) {
+  const total = EXPENSES.reduce((sum, item) => sum + item.amount, 0);
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.headerTitle}>Registrar Nuevo Gasto</Text>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Mis gastos</Text>
 
-            <Text style={styles.label}>Nombre del Gasto:</Text>
-            <TextInput
-                style={styles.input}
-                value={nombreGasto}
-                onChangeText={setNombreGasto}
-                placeholder="Ingrese el nombre del gasto"
-                placeholderTextColor="#999"
-            />
+      <FlatList
+        data={EXPENSES}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ExpenseItem
+            description={item.description}
+            amount={item.amount}
+            category={item.category}
+          />
+        )}
+        ListFooterComponent={
+          <View style={styles.totalRow}>
+            <Text style={styles.totalLabel}>Total</Text>
+            <Text style={styles.totalAmount}>${total}</Text>
+          </View>
+        }
+      />
 
-            <Text style={styles.label}>Monto:</Text>
-            <TextInput
-                style={styles.input}
-                value={monto}
-                onChangeText={setMontoGasto}
-                placeholder="Ingrese el monto"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}>Categoría:</Text>
-            <TextInput
-                style={styles.input}
-                value={categoria}
-                onChangeText={setCategoriaGasto}
-                placeholder="Ingrese la categoría"
-                placeholderTextColor="#999"
-            />
-
-            <View style={styles.buttonContainer}>
-                <Button title="Guardar Gasto" onPress={handleGuardar} color="#007AFF" />
-            </View>
-
-            <View style={styles.backButtonContainer}>
-                <Button title="Volver al Inicio" onPress={onVolver} color="#666" />
-            </View>
-        </View>
-    );
+      <Button
+        title="Agregar gasto"
+        onPress={() => navigation.navigate('NuevoGasto')}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16, textAlign: 'center' },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 5,
-    color: '#333',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 15,
-    backgroundColor: '#f9f9f9',
-  },
-  buttonContainer: {
-    marginTop: 10,
-  },
-  backButtonContainer: {
-    marginTop: 10,
-  },
+  totalLabel: { fontSize: 18, fontWeight: 'bold' },
+  totalAmount: { fontSize: 18, fontWeight: 'bold' },
 });

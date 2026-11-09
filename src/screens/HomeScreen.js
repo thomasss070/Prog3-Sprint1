@@ -1,7 +1,7 @@
 // src/screens/HomeScreen.js
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function HomeScreen({ onNavegarAGastos }) {
+export default function HomeScreen({ onNavegarAGastos, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ExpenseTracker</Text>
@@ -13,7 +13,8 @@ export default function HomeScreen({ onNavegarAGastos }) {
       <View style={styles.buttonContainer}>
         <Button 
           title="Cargar Nuevo Gasto" 
-          onPress={onNavegarAGastos} 
+          onPress={() => navigation.navigate('Gastos')}
+
           color="#007AFF" 
         />
       </View>
@@ -48,3 +49,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 });
+ 
