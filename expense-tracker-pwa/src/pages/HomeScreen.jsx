@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { mockExpenses } from '../data/mockExpenses';
 import '../styles/HomeScreen.css';
 
-function HomeScreen() {
+function HomeScreen({ onNewExpense }) {
   const total = mockExpenses.reduce((sum, item) => sum + item.amount, 0);
   const cantidad = mockExpenses.length;
 
@@ -33,8 +33,8 @@ function HomeScreen() {
         </section>
 
         <section className="home__actions" aria-label="Accesos rápidos">
-          <button type="button" className="home__button">
-            Registrar Nuevo Gasto
+    <button type="button" className="home__button" onClick={onNewExpense}>
+  Registrar Nuevo Gasto
           </button>
           <Link to="/expenses" className="home__button home__button--secondary">
             Ver Listado Completo

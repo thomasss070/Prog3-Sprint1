@@ -1,0 +1,118 @@
+.expense-modal {
+  position: fixed;
+  inset: auto 0 0 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  max-height: 90vh;   /* respaldo */
+  max-height: 90dvh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+  border: none;
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+}
+
+.expense-modal[open] {
+  animation: expense-modal-up 0.25s ease-out;
+}
+
+.expense-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes expense-modal-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.expense-modal__title {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.expense-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.expense-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expense-modal__label {
+  font-size: 14px;
+  color: #666;
+}
+
+.expense-modal__input {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px; /* evita el zoom automático en iOS */
+}
+
+.expense-modal__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.expense-modal__chip input {
+  position: absolute;
+  opacity: 0;
+}
+
+.expense-modal__chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #007aff;
+  border-radius: 22px;
+  color: #007aff;
+  cursor: pointer;
+}
+
+.expense-modal__chip input:checked + span {
+  background: #007aff;
+  color: #fff;
+}
+
+.expense-modal__chip input:focus-visible + span {
+  outline: 2px solid #222;
+  outline-offset: 2px;
+}
+
+.expense-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.expense-modal__button {
+  flex: 1;
+  min-height: 44px;
+  border: 1px solid #007aff;
+  border-radius: 8px;
+  background: #fff;
+  color: #007aff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.expense-modal__button--primary {
+  background: #007aff;
+  color: #fff;
+}
+
+.expense-modal__button:active {
+  opacity: 0.7;
+}
