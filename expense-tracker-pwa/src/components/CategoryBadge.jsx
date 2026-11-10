@@ -1,9 +1,5 @@
 function CategoryBadge({ category }) {
-  return (
-    <span className={`badge badge-${category.toLowerCase()}`}>
-      {category}
-    </span>
-  );
+  return <span className="category-badge">{category}</span>;
 }
 
-export default CategoryBadge;   
+export default CategoryBadge;

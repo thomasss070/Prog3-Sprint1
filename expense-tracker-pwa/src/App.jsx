@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import HomeScreen from './pages/HomeScreen';
+import AppRouter from './router/AppRouter';
 import InstallBanner from './components/InstallBanner';
 import NewExpenseModal from './components/NewExpenseModal';
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <HomeScreen onNewExpense={() => setModalOpen(true)} />
+      <AppRouter onNewExpense={() => setModalOpen(true)} />
       <InstallBanner />
       <NewExpenseModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
